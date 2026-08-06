@@ -163,9 +163,45 @@ def fig_a7_transition_similarity() -> None:
     plt.close(fig)
 
 
+def fig_diag_granularity_matched_similarity() -> None:
+    """Diagnostic (not a numbered thesis figure): native-granularity vs
+    granularity-matched (daily-resampled ETT) null distributions side by
+    side, same observed-value-vs-null-histogram layout as A7, to show how
+    much the sampling-frequency confound check closes the gap."""
+    apply_style()
+
+    native_summary = pd.read_csv(RESULTS_DIR / "transition_similarity_summary.csv").set_index("statistic")
+    native_null = pd.read_csv(RESULTS_DIR / "transition_similarity_null.csv")
+    daily_summary = pd.read_csv(RESULTS_DIR / "transition_similarity_summary_daily.csv").set_index("statistic")
+    daily_null = pd.read_csv(RESULTS_DIR / "transition_similarity_null_daily.csv")
+
+    fig, (ax_native, ax_daily) = plt.subplots(1, 2, figsize=(13, 5.5), sharey=True)
+
+    for ax, summary, null_df, title in [
+        (ax_native, native_summary, native_null, "native granularity (hourly/15-min ETT)"),
+        (ax_daily, daily_summary, daily_null, "granularity-matched (daily-resampled ETT)"),
+    ]:
+        frob = summary.loc["frobenius_norm"]
+        ax.hist(null_df["frobenius_norm"], bins=40, color=OKABE_ITO["sky_blue"], label="permutation null")
+        ax.axvline(frob["observed"], color=OKABE_ITO["vermillion"], linewidth=2, label="observed")
+        ax.set_xlabel("Frobenius norm (ETT vs finance)")
+        ax.set_title(title, fontsize=10)
+        ax.annotate(
+            f"percentile = {frob['observed_percentile']:.1f}\n"
+            f"gap = {(frob['observed'] - frob['null_mean']) / frob['null_std']:.2f} null sd",
+            xy=(0.97, 0.97), xycoords="axes fraction", ha="right", va="top", fontsize=8,
+        )
+    ax_native.set_ylabel("permutations")
+    ax_native.legend(frameon=False, loc="center left")
+
+    save(fig, OUTPUT_DIR, "diag_granularity_matched_similarity")
+    plt.close(fig)
+
+
 if __name__ == "__main__":
     fig_a2_stationarity()
     fig_a4_token_frequency()
     fig_a5_transition_finance()
     fig_a6_transition_ett()
     fig_a7_transition_similarity()
+    fig_diag_granularity_matched_similarity()
