@@ -126,8 +126,13 @@ def tokenize(channels: pd.DataFrame) -> tuple[list[str], pd.Series, SigmaFit, Si
 
     # Zero-volatility windows are degenerate (log(0) undefined) and get an
     # epsilon floor for classification, but must NOT be part of the sigma fit
-    # itself -- see module docstring, point 3.
-    train_volatility_nonzero = train["volatility"][train["volatility"] > 0]
+    # itself -- see module docstring, point 3. Tolerance-based rather than
+    # `== 0.0` / `> 0`: a rolling std over near-constant-but-not-bitwise-identical
+    # values can land on something like 1e-15 instead of exactly zero, which
+    # would slip past a strict equality check and reintroduce the same
+    # fit-inflation problem the exclusion is meant to prevent.
+    is_zero_volatility = np.isclose(train["volatility"], 0.0, atol=1e-10)
+    train_volatility_nonzero = train["volatility"][~is_zero_volatility]
 
     change_fit = fit_sigma(train["change"])
     vol_fit = fit_sigma(log_volatility(train_volatility_nonzero))
