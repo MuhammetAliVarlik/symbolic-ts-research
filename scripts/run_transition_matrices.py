@@ -67,6 +67,22 @@ def row_normalise(counts: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
     return probabilities, row_totals
 
 
+def marginal_distribution(domain: str) -> pd.Series:
+    """The domain's unconditional token frequency from F0-05, reindexed to all 25
+    tokens (0.0 for tokens that never occur, e.g. finance's C0_V0/C4_V0)."""
+    freq = pd.read_csv(RESULTS_DIR / "token_frequency.csv")
+    freq = freq[freq["domain"] == domain].set_index("token")["proportion"]
+    return freq.reindex(ALL_TOKENS, fill_value=0.0)
+
+
+def kl_divergence_vs_marginal(row: pd.Series, marginal: pd.Series) -> float:
+    """KL(row || marginal), base 2 (bits). A token can't be a transition target
+    with zero overall marginal frequency, so marginal > 0 wherever row > 0 --
+    no smoothing needed for this to be well-defined."""
+    support = row > 0
+    return float(np.sum(row[support] * np.log2(row[support] / marginal[support])))
+
+
 def main() -> None:
     domains = {
         "ett": (list(ETT_VARIANTS), lambda v: load_ett(v).set_index("date")[BASE_READING["ett"]]),
@@ -74,9 +90,11 @@ def main() -> None:
     }
 
     row_count_rows = []
+    divergence_rows = []
     for domain, (series_ids, loader) in domains.items():
         counts = transition_counts(domain, series_ids, loader)
         probabilities, row_totals = row_normalise(counts)
+        marginal = marginal_distribution(domain)
 
         matrix_path = RESULTS_DIR / f"transition_matrix_{domain}.csv"
         probabilities.to_csv(matrix_path)
@@ -101,6 +119,11 @@ def main() -> None:
                 flag = "sufficient"
             row_count_rows.append({"domain": domain, "from_token": token, "row_total": n, "flag": flag})
 
+            kl = float("nan") if n == 0 else kl_divergence_vs_marginal(probabilities.loc[token], marginal)
+            divergence_rows.append(
+                {"domain": domain, "from_token": token, "row_total": n, "flag": flag, "kl_vs_marginal_bits": kl}
+            )
+
     row_counts_df = pd.DataFrame(row_count_rows)
     row_counts_path = RESULTS_DIR / "transition_matrix_row_counts.csv"
     row_counts_df.to_csv(row_counts_path, index=False)
@@ -109,6 +132,28 @@ def main() -> None:
     flagged = row_counts_df[row_counts_df["flag"] != "sufficient"].sort_values(["domain", "row_total"])
     print(f"\nrows flagged as undefined or sparse (< {MIN_OBSERVATIONS} observations):")
     print(flagged.to_string(index=False))
+
+    # Row-vs-marginal divergence: how much does each row actually deviate from
+    # the domain's unconditional token frequency (repeated identically in
+    # every row)? Low divergence would mean the transition matrix is mostly
+    # reproducing the marginal, not revealing conditional structure beyond it.
+    divergence_df = pd.DataFrame(divergence_rows)
+    divergence_path = RESULTS_DIR / "transition_vs_marginal_divergence.csv"
+    divergence_df.to_csv(divergence_path, index=False)
+    print(f"\nwrote {divergence_path}")
+
+    print("\nmean KL(row || marginal), observation-weighted, bits:")
+    for domain in domains:
+        subset = divergence_df[divergence_df["domain"] == domain]
+        defined = subset[subset["flag"] != "undefined"]
+        sufficient = subset[subset["flag"] == "sufficient"]
+
+        weighted_all = np.average(defined["kl_vs_marginal_bits"], weights=defined["row_total"])
+        weighted_sufficient = np.average(sufficient["kl_vs_marginal_bits"], weights=sufficient["row_total"])
+        print(
+            f"  {domain}: all defined rows = {weighted_all:.4f} bits, "
+            f"sufficient rows only (n>={MIN_OBSERVATIONS}) = {weighted_sufficient:.4f} bits"
+        )
 
 
 if __name__ == "__main__":
