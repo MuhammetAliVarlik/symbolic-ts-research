@@ -40,5 +40,84 @@
       "sha256": "e038025d0046ab0cf2d1f3fb71fe8c3544d69863f5eb12526adf662d3dec49a6",
       "source_url": "https://raw.githubusercontent.com/zhouhaoyi/ETDataset/main/ETT-small/ETTm2.csv"
     }
+  },
+  "finance": {
+    "AAPL": {
+      "date_range": [
+        "2014-01-02T00:00:00",
+        "2026-08-05T00:00:00"
+      ],
+      "dropped_rows": 0,
+      "retrieved_at": "2026-08-06T11:33:58.704261+00:00",
+      "row_count": 3166,
+      "sha256": "33dc00a9704f0fc57bec612f4c63426a7f14a63797b71680ae525348a9262821",
+      "source": "yfinance"
+    },
+    "JNJ": {
+      "date_range": [
+        "2014-01-02T00:00:00",
+        "2026-08-05T00:00:00"
+      ],
+      "dropped_rows": 0,
+      "retrieved_at": "2026-08-06T11:34:00.883107+00:00",
+      "row_count": 3166,
+      "sha256": "a8b4986cbc326a81a981950e91f82e4015ca139380775fca8e65a823e45633cd",
+      "source": "yfinance"
+    },
+    "JPM": {
+      "date_range": [
+        "2014-01-02T00:00:00",
+        "2026-08-05T00:00:00"
+      ],
+      "dropped_rows": 0,
+      "retrieved_at": "2026-08-06T11:33:59.743027+00:00",
+      "row_count": 3166,
+      "sha256": "04b3d5882afc8988011cb3f492ba2125b233818af3871c93e530a9658f267bb9",
+      "source": "yfinance"
+    },
+    "MSFT": {
+      "date_range": [
+        "2014-01-02T00:00:00",
+        "2026-08-05T00:00:00"
+      ],
+      "dropped_rows": 0,
+      "retrieved_at": "2026-08-06T11:33:59.185867+00:00",
+      "row_count": 3166,
+      "sha256": "555b6e3267aa786cf7a4c51ec61304e7bbb0663e015649d0a214b3b3e78a500f",
+      "source": "yfinance"
+    },
+    "SPY": {
+      "date_range": [
+        "2014-01-02T00:00:00",
+        "2026-08-05T00:00:00"
+      ],
+      "dropped_rows": 0,
+      "retrieved_at": "2026-08-06T11:34:02.063802+00:00",
+      "row_count": 3166,
+      "sha256": "e5d1de280aa8a855827e7c229940435a6a601722d707e1f8c4453cb94cfd7f45",
+      "source": "yfinance"
+    },
+    "WMT": {
+      "date_range": [
+        "2014-01-02T00:00:00",
+        "2026-08-05T00:00:00"
+      ],
+      "dropped_rows": 0,
+      "retrieved_at": "2026-08-06T11:34:01.459506+00:00",
+      "row_count": 3166,
+      "sha256": "8b1babebc950abc9baad498e6c6f7f3228d4f6c1a16746670e1771da3c0152f0",
+      "source": "yfinance"
+    },
+    "XOM": {
+      "date_range": [
+        "2014-01-02T00:00:00",
+        "2026-08-05T00:00:00"
+      ],
+      "dropped_rows": 0,
+      "retrieved_at": "2026-08-06T11:34:00.309665+00:00",
+      "row_count": 3166,
+      "sha256": "28f744dc50d6b97027c8a25723042c2707364575017ccc51c480befe35acfea4",
+      "source": "yfinance"
+    }
   }
 }
