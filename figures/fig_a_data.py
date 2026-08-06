@@ -113,8 +113,59 @@ def fig_a6_transition_ett() -> None:
     _transition_heatmap(matrix, "A6_transition_ett")
 
 
+def fig_a7_transition_similarity() -> None:
+    """A7 -- transition matrix difference, annotated with the divergence against
+    the permutation null. Left: null distribution (Frobenius norm) with the
+    observed value marked. Right: the signed difference matrix itself,
+    restricted to rows defined in both domains."""
+    apply_style()
+
+    summary = pd.read_csv(RESULTS_DIR / "transition_similarity_summary.csv").set_index("statistic")
+    null_df = pd.read_csv(RESULTS_DIR / "transition_similarity_null.csv")
+
+    ett = pd.read_csv(RESULTS_DIR / "transition_matrix_ett.csv", index_col=0)
+    fin = pd.read_csv(RESULTS_DIR / "transition_matrix_finance.csv", index_col=0)
+    common_rows = ett.dropna(how="all").index.intersection(fin.dropna(how="all").index)
+    diff = (ett.loc[common_rows] - fin.loc[common_rows]).astype(float)
+
+    frob = summary.loc["frobenius_norm"]
+    kl = summary.loc["symmetrised_kl_bits"]
+
+    fig, (ax_hist, ax_diff) = plt.subplots(1, 2, figsize=(13, 6))
+
+    ax_hist.hist(null_df["frobenius_norm"], bins=40, color=OKABE_ITO["sky_blue"], label="permutation null")
+    ax_hist.axvline(frob["observed"], color=OKABE_ITO["vermillion"], linewidth=2, label="observed")
+    ax_hist.set_xlabel("Frobenius norm (ETT vs finance)")
+    ax_hist.set_ylabel("permutations")
+    ax_hist.legend(frameon=False)
+    ax_hist.annotate(
+        f"observed = {frob['observed']:.3f}\n"
+        f"null mean = {frob['null_mean']:.3f} (sd {frob['null_std']:.3f})\n"
+        f"percentile = {frob['observed_percentile']:.1f}\n"
+        f"symmetrised KL = {kl['observed']:.3f} bits\n"
+        f"(null mean {kl['null_mean']:.3f}, percentile {kl['observed_percentile']:.1f})",
+        xy=(0.97, 0.97), xycoords="axes fraction", ha="right", va="top", fontsize=8,
+    )
+
+    cmap = plt.get_cmap("RdBu_r").copy()
+    bound = float(diff.abs().to_numpy().max())
+    im = ax_diff.imshow(diff.to_numpy(), cmap=cmap, vmin=-bound, vmax=bound)
+    ax_diff.set_xticks(range(len(diff.columns)))
+    ax_diff.set_xticklabels(diff.columns, rotation=90, fontsize=6)
+    ax_diff.set_yticks(range(len(diff.index)))
+    ax_diff.set_yticklabels(diff.index, fontsize=6)
+    ax_diff.set_xlabel("to token")
+    ax_diff.set_ylabel("from token")
+    ax_diff.grid(False)
+    fig.colorbar(im, ax=ax_diff, label="P(ett) - P(finance)", fraction=0.046, pad=0.04)
+
+    save(fig, OUTPUT_DIR, "A7_transition_similarity")
+    plt.close(fig)
+
+
 if __name__ == "__main__":
     fig_a2_stationarity()
     fig_a4_token_frequency()
     fig_a5_transition_finance()
     fig_a6_transition_ett()
+    fig_a7_transition_similarity()
