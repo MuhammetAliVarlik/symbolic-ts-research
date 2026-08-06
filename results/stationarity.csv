@@ -1,0 +1,281 @@
+domain,series_id,channel,transform,test,statistic,p_value,lags_used,n_obs,reject_null_5pct,conclusion
+ett,ETTh1,HUFL,differenced,ADF,-33.0733719585437,0.0,44,17374,True,stationary
+ett,ETTh1,HUFL,differenced,KPSS,0.004129396411476528,0.1,125,17419,False,stationary
+ett,ETTh1,HUFL,raw,ADF,-8.550517154578017,9.250275951479211e-14,44,17375,True,stationary
+ett,ETTh1,HUFL,raw,KPSS,6.478132129151844,0.01,47,17420,True,non-stationary
+ett,ETTh1,HULL,differenced,ADF,-29.469052643307812,0.0,44,17374,True,stationary
+ett,ETTh1,HULL,differenced,KPSS,0.027143221629306963,0.1,480,17419,False,stationary
+ett,ETTh1,HULL,raw,ADF,-5.1690552718096034,1.0165335326727401e-05,44,17375,True,stationary
+ett,ETTh1,HULL,raw,KPSS,2.2265505361430398,0.01,72,17420,True,non-stationary
+ett,ETTh1,LUFL,differenced,ADF,-40.06271054646437,0.0,44,17374,True,stationary
+ett,ETTh1,LUFL,differenced,KPSS,0.06307734966298668,0.1,1420,17419,False,stationary
+ett,ETTh1,LUFL,raw,ADF,-5.796895204171236,4.728963647570247e-07,44,17375,True,stationary
+ett,ETTh1,LUFL,raw,KPSS,2.014707528352455,0.01,69,17420,True,non-stationary
+ett,ETTh1,LULL,differenced,ADF,-29.278463033922907,0.0,44,17374,True,stationary
+ett,ETTh1,LULL,differenced,KPSS,0.013059565551396207,0.1,106,17419,False,stationary
+ett,ETTh1,LULL,raw,ADF,-4.77268565296125,6.132123147779482e-05,44,17375,True,stationary
+ett,ETTh1,LULL,raw,KPSS,1.15591919607885,0.01,76,17420,True,non-stationary
+ett,ETTh1,MUFL,differenced,ADF,-33.37537905740127,0.0,44,17374,True,stationary
+ett,ETTh1,MUFL,differenced,KPSS,0.0033888876047103948,0.1,112,17419,False,stationary
+ett,ETTh1,MUFL,raw,ADF,-8.621208862621966,6.098079311471004e-14,44,17375,True,stationary
+ett,ETTh1,MUFL,raw,KPSS,9.06332222355926,0.01,46,17420,True,non-stationary
+ett,ETTh1,MULL,differenced,ADF,-28.767855429544962,0.0,44,17374,True,stationary
+ett,ETTh1,MULL,differenced,KPSS,0.04694144158053356,0.1,1383,17419,False,stationary
+ett,ETTh1,MULL,raw,ADF,-4.964070596023733,2.612875420199755e-05,44,17375,True,stationary
+ett,ETTh1,MULL,raw,KPSS,1.7189936029390864,0.01,73,17420,True,non-stationary
+ett,ETTh1,OT,differenced,ADF,-26.38342016447871,0.0,44,17374,True,stationary
+ett,ETTh1,OT,differenced,KPSS,0.017004552400787385,0.1,47,17419,False,stationary
+ett,ETTh1,OT,raw,ADF,-3.4879635775933875,0.008301649485465768,44,17375,True,stationary
+ett,ETTh1,OT,raw,KPSS,9.462058512858952,0.01,77,17420,True,non-stationary
+ett,ETTh2,HUFL,differenced,ADF,-28.301008329015716,0.0,44,17374,True,stationary
+ett,ETTh2,HUFL,differenced,KPSS,0.005985972534288411,0.1,108,17419,False,stationary
+ett,ETTh2,HUFL,raw,ADF,-6.526356047602598,1.0123321654129264e-08,44,17375,True,stationary
+ett,ETTh2,HUFL,raw,KPSS,8.858100710936725,0.01,75,17420,True,non-stationary
+ett,ETTh2,HULL,differenced,ADF,-27.105693513254433,0.0,44,17374,True,stationary
+ett,ETTh2,HULL,differenced,KPSS,0.014634964998493417,0.1,123,17419,False,stationary
+ett,ETTh2,HULL,raw,ADF,-4.5542415045645415,0.00015672008929015405,42,17377,True,stationary
+ett,ETTh2,HULL,raw,KPSS,12.757165279749271,0.01,76,17420,True,non-stationary
+ett,ETTh2,LUFL,differenced,ADF,-26.053964210791687,0.0,44,17374,True,stationary
+ett,ETTh2,LUFL,differenced,KPSS,0.013021634007128784,0.1,198,17419,False,stationary
+ett,ETTh2,LUFL,raw,ADF,-2.4355311016209225,0.13195806100069668,44,17375,False,non-stationary
+ett,ETTh2,LUFL,raw,KPSS,16.52723482405105,0.01,77,17420,True,non-stationary
+ett,ETTh2,LULL,differenced,ADF,-23.15169134845074,0.0,41,17377,True,stationary
+ett,ETTh2,LULL,differenced,KPSS,0.020728536684120207,0.1,71,17419,False,stationary
+ett,ETTh2,LULL,raw,ADF,-3.3407649353062467,0.013151752694934776,42,17377,True,stationary
+ett,ETTh2,LULL,raw,KPSS,1.0814236350691413,0.01,77,17420,True,non-stationary
+ett,ETTh2,MUFL,differenced,ADF,-27.812230393971983,0.0,44,17374,True,stationary
+ett,ETTh2,MUFL,differenced,KPSS,0.013175446694406815,0.1,101,17419,False,stationary
+ett,ETTh2,MUFL,raw,ADF,-4.044640506600925,0.00119397895820019,44,17375,True,stationary
+ett,ETTh2,MUFL,raw,KPSS,1.2423819463621955,0.01,76,17420,True,non-stationary
+ett,ETTh2,MULL,differenced,ADF,-28.36584048165437,0.0,44,17374,True,stationary
+ett,ETTh2,MULL,differenced,KPSS,0.017629143594972113,0.1,163,17419,False,stationary
+ett,ETTh2,MULL,raw,ADF,-4.452997699432942,0.00023888743066216613,44,17375,True,stationary
+ett,ETTh2,MULL,raw,KPSS,8.16315585620973,0.01,76,17420,True,non-stationary
+ett,ETTh2,OT,differenced,ADF,-26.454305638071805,0.0,41,17377,True,stationary
+ett,ETTh2,OT,differenced,KPSS,0.0188640693509703,0.1,58,17419,False,stationary
+ett,ETTh2,OT,raw,ADF,-3.5971318743340124,0.005816097489276743,42,17377,True,stationary
+ett,ETTh2,OT,raw,KPSS,1.8443059023142692,0.01,75,17420,True,non-stationary
+ett,ETTm1,HUFL,differenced,ADF,-62.12265260320308,0.0,62,69616,True,stationary
+ett,ETTm1,HUFL,differenced,KPSS,0.002617628442977862,0.1,103,69679,False,stationary
+ett,ETTm1,HUFL,raw,ADF,-26.72537525687443,0.0,62,69617,True,stationary
+ett,ETTm1,HUFL,raw,KPSS,7.474788976541663,0.01,143,69680,True,non-stationary
+ett,ETTm1,HULL,differenced,ADF,-49.06000908133064,0.0,62,69616,True,stationary
+ett,ETTm1,HULL,differenced,KPSS,0.000747926090829991,0.1,34,69679,False,stationary
+ett,ETTm1,HULL,raw,ADF,-11.849988356419448,7.24669335527306e-22,58,69621,True,stationary
+ett,ETTm1,HULL,raw,KPSS,4.135777708531436,0.01,147,69680,True,non-stationary
+ett,ETTm1,LUFL,differenced,ADF,-48.051058558350995,0.0,62,69616,True,stationary
+ett,ETTm1,LUFL,differenced,KPSS,0.00377339501636029,0.1,137,69679,False,stationary
+ett,ETTm1,LUFL,raw,ADF,-16.313302354557905,3.180261409827787e-29,62,69617,True,stationary
+ett,ETTm1,LUFL,raw,KPSS,3.4385087789416264,0.01,144,69680,True,non-stationary
+ett,ETTm1,LULL,differenced,ADF,-51.33428436305913,0.0,62,69616,True,stationary
+ett,ETTm1,LULL,differenced,KPSS,0.007309481824187496,0.1,135,69679,False,stationary
+ett,ETTm1,LULL,raw,ADF,-7.048325910474055,5.610884080013421e-10,62,69617,True,stationary
+ett,ETTm1,LULL,raw,KPSS,2.216849078701432,0.01,149,69680,True,non-stationary
+ett,ETTm1,MUFL,differenced,ADF,-62.32122582997216,0.0,62,69616,True,stationary
+ett,ETTm1,MUFL,differenced,KPSS,0.00177362256219225,0.1,108,69679,False,stationary
+ett,ETTm1,MUFL,raw,ADF,-27.329657387893597,0.0,62,69617,True,stationary
+ett,ETTm1,MUFL,raw,KPSS,10.078533930535665,0.01,143,69680,True,non-stationary
+ett,ETTm1,MULL,differenced,ADF,-47.99718148353423,0.0,62,69616,True,stationary
+ett,ETTm1,MULL,differenced,KPSS,0.0009712006598557312,0.1,47,69679,False,stationary
+ett,ETTm1,MULL,raw,ADF,-11.433413123424792,6.433941745882668e-21,59,69620,True,stationary
+ett,ETTm1,MULL,raw,KPSS,3.2579603843808504,0.01,148,69680,True,non-stationary
+ett,ETTm1,OT,differenced,ADF,-47.30164188014663,0.0,62,69616,True,stationary
+ett,ETTm1,OT,differenced,KPSS,0.006262223802102072,0.1,16,69679,False,stationary
+ett,ETTm1,OT,raw,ADF,-4.191578052234114,0.0006808663726325324,62,69617,True,stationary
+ett,ETTm1,OT,raw,KPSS,19.05584545935037,0.01,150,69680,True,non-stationary
+ett,ETTm2,HUFL,differenced,ADF,-48.18062692014142,0.0,62,69616,True,stationary
+ett,ETTm2,HUFL,differenced,KPSS,0.0036343793771526876,0.1,107,69679,False,stationary
+ett,ETTm2,HUFL,raw,ADF,-9.504707624889207,3.371522537963083e-16,62,69617,True,stationary
+ett,ETTm2,HUFL,raw,KPSS,16.244889454077423,0.01,149,69680,True,non-stationary
+ett,ETTm2,HULL,differenced,ADF,-46.19611764483678,0.0,62,69616,True,stationary
+ett,ETTm2,HULL,differenced,KPSS,0.009797237386249491,0.1,249,69679,False,stationary
+ett,ETTm2,HULL,raw,ADF,-6.526336886165703,1.0124377202287435e-08,62,69617,True,stationary
+ett,ETTm2,HULL,raw,KPSS,25.048417571848862,0.01,149,69680,True,non-stationary
+ett,ETTm2,LUFL,differenced,ADF,-49.09141696691969,0.0,62,69616,True,stationary
+ett,ETTm2,LUFL,differenced,KPSS,0.008917839934571386,0.1,289,69679,False,stationary
+ett,ETTm2,LUFL,raw,ADF,-3.3551027254224395,0.012588019202209744,62,69617,True,stationary
+ett,ETTm2,LUFL,raw,KPSS,33.67187391014737,0.01,150,69680,True,non-stationary
+ett,ETTm2,LULL,differenced,ADF,-40.38588812076228,0.0,61,69617,True,stationary
+ett,ETTm2,LULL,differenced,KPSS,0.018144761657038863,0.1,142,69679,False,stationary
+ett,ETTm2,LULL,raw,ADF,-3.520811702538321,0.007468418227785542,62,69617,True,stationary
+ett,ETTm2,LULL,raw,KPSS,2.2001018219310535,0.01,150,69680,True,non-stationary
+ett,ETTm2,MUFL,differenced,ADF,-51.4068761282549,0.0,62,69616,True,stationary
+ett,ETTm2,MUFL,differenced,KPSS,0.008951183804651467,0.1,94,69679,False,stationary
+ett,ETTm2,MUFL,raw,ADF,-5.9449342893076205,2.2156864668982628e-07,62,69617,True,stationary
+ett,ETTm2,MUFL,raw,KPSS,2.434949706776385,0.01,150,69680,True,non-stationary
+ett,ETTm2,MULL,differenced,ADF,-45.743224209933466,0.0,62,69616,True,stationary
+ett,ETTm2,MULL,differenced,KPSS,0.011590000510877347,0.1,253,69679,False,stationary
+ett,ETTm2,MULL,raw,ADF,-6.76003357552532,2.8074423271538976e-09,62,69617,True,stationary
+ett,ETTm2,MULL,raw,KPSS,16.016448007260063,0.01,149,69680,True,non-stationary
+ett,ETTm2,OT,differenced,ADF,-68.36462065434415,0.0,62,69616,True,stationary
+ett,ETTm2,OT,differenced,KPSS,0.012514680504656987,0.1,132,69679,False,stationary
+ett,ETTm2,OT,raw,ADF,-4.0334744004533185,0.001245024080468489,62,69617,True,stationary
+ett,ETTm2,OT,raw,KPSS,3.5965933744659018,0.01,150,69680,True,non-stationary
+finance,AAPL,Adj Close,differenced,ADF,-19.2039918737817,0.0,8,3156,True,stationary
+finance,AAPL,Adj Close,differenced,KPSS,0.24469191623453557,0.1,14,3165,False,stationary
+finance,AAPL,Adj Close,raw,ADF,0.9241980481689089,0.9933981296474002,9,3156,False,non-stationary
+finance,AAPL,Adj Close,raw,KPSS,9.061437643613848,0.01,32,3166,True,non-stationary
+finance,AAPL,Close,differenced,ADF,-19.200618129690792,0.0,8,3156,True,stationary
+finance,AAPL,Close,differenced,KPSS,0.2309928159185687,0.1,14,3165,False,stationary
+finance,AAPL,Close,raw,ADF,0.8528695758710356,0.9924433814498008,9,3156,False,non-stationary
+finance,AAPL,Close,raw,KPSS,9.06469139220462,0.01,32,3166,True,non-stationary
+finance,AAPL,High,differenced,ADF,-29.31380334500019,0.0,3,3161,True,stationary
+finance,AAPL,High,differenced,KPSS,0.23303584218436635,0.1,10,3165,False,stationary
+finance,AAPL,High,raw,ADF,0.8263935797403752,0.9920504823985041,4,3161,False,non-stationary
+finance,AAPL,High,raw,KPSS,9.065241661167141,0.01,32,3166,True,non-stationary
+finance,AAPL,Low,differenced,ADF,-11.018327420037663,6.076589755783926e-20,26,3138,True,stationary
+finance,AAPL,Low,differenced,KPSS,0.21374172773131814,0.1,13,3165,False,stationary
+finance,AAPL,Low,raw,ADF,0.9681105247745988,0.9939178177603738,27,3138,False,non-stationary
+finance,AAPL,Low,raw,KPSS,9.062529409311987,0.01,32,3166,True,non-stationary
+finance,AAPL,Open,differenced,ADF,-34.527107668129744,0.0,2,3162,True,stationary
+finance,AAPL,Open,differenced,KPSS,0.22764297608094897,0.1,16,3165,False,stationary
+finance,AAPL,Open,raw,ADF,0.6398928382178962,0.9885587378131908,3,3162,False,non-stationary
+finance,AAPL,Open,raw,KPSS,9.063887042710682,0.01,32,3166,True,non-stationary
+finance,AAPL,Volume,differenced,ADF,-17.039930999306524,8.210144407338835e-30,27,3137,True,stationary
+finance,AAPL,Volume,differenced,KPSS,0.03342861235044385,0.1,161,3165,False,stationary
+finance,AAPL,Volume,raw,ADF,-4.417585647776104,0.00027626855769868024,28,3137,True,stationary
+finance,AAPL,Volume,raw,KPSS,6.757187533578245,0.01,31,3166,True,non-stationary
+finance,JNJ,Adj Close,differenced,ADF,-10.828760300979113,1.7296244381974525e-19,27,3137,True,stationary
+finance,JNJ,Adj Close,differenced,KPSS,0.28632017389436354,0.1,8,3165,False,stationary
+finance,JNJ,Adj Close,raw,ADF,1.3547230791700515,0.9968984282292607,25,3140,False,non-stationary
+finance,JNJ,Adj Close,raw,KPSS,8.159690443486,0.01,32,3166,True,non-stationary
+finance,JNJ,Close,differenced,ADF,-11.99033119237956,3.5333434603910093e-22,24,3140,True,stationary
+finance,JNJ,Close,differenced,KPSS,0.17691227376273086,0.1,7,3165,False,stationary
+finance,JNJ,Close,raw,ADF,0.4851523590364632,0.9844147587838226,25,3140,False,non-stationary
+finance,JNJ,Close,raw,KPSS,7.399494483857424,0.01,32,3166,True,non-stationary
+finance,JNJ,High,differenced,ADF,-51.52667540525227,0.0,0,3164,True,stationary
+finance,JNJ,High,differenced,KPSS,0.1875002849541782,0.1,5,3165,False,stationary
+finance,JNJ,High,raw,ADF,0.2591844179259863,0.9753924167415088,1,3164,False,non-stationary
+finance,JNJ,High,raw,KPSS,7.398559356922229,0.01,32,3166,True,non-stationary
+finance,JNJ,Low,differenced,ADF,-40.37798711165383,0.0,1,3163,True,stationary
+finance,JNJ,Low,differenced,KPSS,0.16529054150789216,0.1,5,3165,False,stationary
+finance,JNJ,Low,raw,ADF,0.13563011658891755,0.9684112041916644,2,3163,False,non-stationary
+finance,JNJ,Low,raw,KPSS,7.396152124705778,0.01,32,3166,True,non-stationary
+finance,JNJ,Open,differenced,ADF,-56.86366664156111,0.0,0,3164,True,stationary
+finance,JNJ,Open,differenced,KPSS,0.16604942986557508,0.1,3,3165,False,stationary
+finance,JNJ,Open,raw,ADF,0.09605838293894568,0.9657909489649004,0,3165,False,non-stationary
+finance,JNJ,Open,raw,KPSS,7.398817298815325,0.01,32,3166,True,non-stationary
+finance,JNJ,Volume,differenced,ADF,-15.264308376489721,4.812900909482514e-28,29,3135,True,stationary
+finance,JNJ,Volume,differenced,KPSS,0.007032053642326929,0.1,40,3165,False,stationary
+finance,JNJ,Volume,raw,ADF,-13.258532732742296,8.490455894861725e-25,3,3162,True,stationary
+finance,JNJ,Volume,raw,KPSS,0.29188561513063854,0.1,29,3166,False,stationary
+finance,JPM,Adj Close,differenced,ADF,-10.837575832068007,1.6470651251374545e-19,29,3135,True,stationary
+finance,JPM,Adj Close,differenced,KPSS,0.5343752493912333,0.03392449338035287,1,3165,True,non-stationary
+finance,JPM,Adj Close,raw,ADF,2.6152439255750135,0.9990778192831847,26,3139,False,non-stationary
+finance,JPM,Adj Close,raw,KPSS,7.701256090720557,0.01,32,3166,True,non-stationary
+finance,JPM,Close,differenced,ADF,-12.364547128810568,5.451387663127327e-23,25,3139,True,stationary
+finance,JPM,Close,differenced,KPSS,0.4000945174400662,0.0771144321379025,1,3165,False,stationary
+finance,JPM,Close,raw,ADF,2.028363907152674,0.9987086925206251,26,3139,False,non-stationary
+finance,JPM,Close,raw,KPSS,7.580523911951831,0.01,32,3166,True,non-stationary
+finance,JPM,High,differenced,ADF,-10.809206683299788,1.9279915971663158e-19,28,3136,True,stationary
+finance,JPM,High,differenced,KPSS,0.45677998066288267,0.052681042817723,5,3165,False,stationary
+finance,JPM,High,raw,ADF,1.9276574478689934,0.9985712399301245,29,3136,False,non-stationary
+finance,JPM,High,raw,KPSS,7.58420607781457,0.01,32,3166,True,non-stationary
+finance,JPM,Low,differenced,ADF,-12.360360867640816,5.564402641308629e-23,24,3140,True,stationary
+finance,JPM,Low,differenced,KPSS,0.40412182515790224,0.07537852363883524,2,3165,False,stationary
+finance,JPM,Low,raw,ADF,1.9148293451702854,0.998551507413706,25,3140,False,non-stationary
+finance,JPM,Low,raw,KPSS,7.572643268116732,0.01,32,3166,True,non-stationary
+finance,JPM,Open,differenced,ADF,-58.30937938151609,0.0,0,3164,True,stationary
+finance,JPM,Open,differenced,KPSS,0.39225976368699783,0.08049148116939749,1,3165,False,stationary
+finance,JPM,Open,raw,ADF,1.928546740078838,0.9985725880687638,25,3140,False,non-stationary
+finance,JPM,Open,raw,KPSS,7.578464855336347,0.01,32,3166,True,non-stationary
+finance,JPM,Volume,differenced,ADF,-21.243826812792896,0.0,16,3148,True,stationary
+finance,JPM,Volume,differenced,KPSS,0.017563560544718724,0.1,88,3165,False,stationary
+finance,JPM,Volume,raw,ADF,-6.566364130430092,8.140164677843296e-09,17,3148,True,stationary
+finance,JPM,Volume,raw,KPSS,3.606986363118234,0.01,29,3166,True,non-stationary
+finance,MSFT,Adj Close,differenced,ADF,-12.252533178477025,9.468839444966598e-23,19,3145,True,stationary
+finance,MSFT,Adj Close,differenced,KPSS,0.09459232207213533,0.1,1,3165,False,stationary
+finance,MSFT,Adj Close,raw,ADF,0.03933622755666165,0.9616667645133522,20,3145,False,non-stationary
+finance,MSFT,Adj Close,raw,KPSS,9.181991618509906,0.01,32,3166,True,non-stationary
+finance,MSFT,Close,differenced,ADF,-12.27868189471105,8.319019812797148e-23,19,3145,True,stationary
+finance,MSFT,Close,differenced,KPSS,0.08368489899198489,0.1,1,3165,False,stationary
+finance,MSFT,Close,raw,ADF,-0.050152197323599074,0.9541827361414323,20,3145,False,non-stationary
+finance,MSFT,Close,raw,KPSS,9.192210096917062,0.01,32,3166,True,non-stationary
+finance,MSFT,High,differenced,ADF,-13.285377674422724,7.546840282135197e-25,17,3147,True,stationary
+finance,MSFT,High,differenced,KPSS,0.09749247863070822,0.1,6,3165,False,stationary
+finance,MSFT,High,raw,ADF,0.03052615826738502,0.9609849404181617,18,3147,False,non-stationary
+finance,MSFT,High,raw,KPSS,9.201836219793217,0.01,32,3166,True,non-stationary
+finance,MSFT,Low,differenced,ADF,-11.331337956787065,1.1108194372563723e-20,20,3144,True,stationary
+finance,MSFT,Low,differenced,KPSS,0.09106496958607319,0.1,1,3165,False,stationary
+finance,MSFT,Low,raw,ADF,-0.09311861359131633,0.9501196473631957,21,3144,False,non-stationary
+finance,MSFT,Low,raw,KPSS,9.18026279324113,0.01,32,3166,True,non-stationary
+finance,MSFT,Open,differenced,ADF,-22.695856876224838,0.0,5,3159,True,stationary
+finance,MSFT,Open,differenced,KPSS,0.09497828054812868,0.1,1,3165,False,stationary
+finance,MSFT,Open,raw,ADF,-0.008588173460602665,0.9578160611751568,6,3159,False,non-stationary
+finance,MSFT,Open,raw,KPSS,9.18817374899563,0.01,32,3166,True,non-stationary
+finance,MSFT,Volume,differenced,ADF,-18.543954223722224,2.09611306093906e-30,24,3140,True,stationary
+finance,MSFT,Volume,differenced,KPSS,0.013258257389719594,0.1,74,3165,False,stationary
+finance,MSFT,Volume,raw,ADF,-6.101894903326468,9.790254352901257e-08,24,3141,True,stationary
+finance,MSFT,Volume,raw,KPSS,0.9384300327288048,0.01,28,3166,True,non-stationary
+finance,SPY,Adj Close,differenced,ADF,-12.079122360934253,2.2537112444726873e-22,21,3143,True,stationary
+finance,SPY,Adj Close,differenced,KPSS,0.44847732491993564,0.05625977374140706,9,3165,False,stationary
+finance,SPY,Adj Close,raw,ADF,1.9571924936936638,0.9986146771885464,26,3139,False,non-stationary
+finance,SPY,Adj Close,raw,KPSS,8.786773082525523,0.01,32,3166,True,non-stationary
+finance,SPY,Close,differenced,ADF,-18.69585505084644,2.0381527465434517e-30,8,3156,True,stationary
+finance,SPY,Close,differenced,KPSS,0.3595449313183317,0.09459270201796047,9,3165,False,stationary
+finance,SPY,Close,raw,ADF,1.6260622664882751,0.9979336964330534,26,3139,False,non-stationary
+finance,SPY,Close,raw,KPSS,8.741011426293133,0.01,32,3166,True,non-stationary
+finance,SPY,High,differenced,ADF,-38.94052923511366,0.0,1,3163,True,stationary
+finance,SPY,High,differenced,KPSS,0.44134085156291997,0.05933583984356899,6,3165,False,stationary
+finance,SPY,High,raw,ADF,1.6696476496253583,0.9980521846001893,2,3163,False,non-stationary
+finance,SPY,High,raw,KPSS,8.753945099580108,0.01,32,3166,True,non-stationary
+finance,SPY,Low,differenced,ADF,-18.847702033991986,0.0,8,3156,True,stationary
+finance,SPY,Low,differenced,KPSS,0.33260089941997684,0.1,10,3165,False,stationary
+finance,SPY,Low,raw,ADF,1.5358749051737675,0.9976518544928233,26,3139,False,non-stationary
+finance,SPY,Low,raw,KPSS,8.726462160297363,0.01,32,3166,True,non-stationary
+finance,SPY,Open,differenced,ADF,-33.58563331282879,0.0,2,3162,True,stationary
+finance,SPY,Open,differenced,KPSS,0.38039239812909054,0.08560672494435753,7,3165,False,stationary
+finance,SPY,Open,raw,ADF,1.473899193264981,0.9974253056171258,3,3162,False,non-stationary
+finance,SPY,Open,raw,KPSS,8.73889353929045,0.01,32,3166,True,non-stationary
+finance,SPY,Volume,differenced,ADF,-14.085057082845735,2.784916783004847e-26,29,3135,True,stationary
+finance,SPY,Volume,differenced,KPSS,0.0097671729266629,0.1,53,3165,False,stationary
+finance,SPY,Volume,raw,ADF,-8.697537030695974,3.888191285333898e-14,8,3157,True,stationary
+finance,SPY,Volume,raw,KPSS,2.2166235757655595,0.01,30,3166,True,non-stationary
+finance,WMT,Adj Close,differenced,ADF,-12.345181847399173,5.994647554297788e-23,29,3135,True,stationary
+finance,WMT,Adj Close,differenced,KPSS,0.4170151363656916,0.06982106191133983,16,3165,False,stationary
+finance,WMT,Adj Close,raw,ADF,1.3824350983772251,0.9970328681094511,25,3140,False,non-stationary
+finance,WMT,Adj Close,raw,KPSS,7.480480843906712,0.01,32,3166,True,non-stationary
+finance,WMT,Close,differenced,ADF,-12.344259037129502,6.021875009174131e-23,29,3135,True,stationary
+finance,WMT,Close,differenced,KPSS,0.38966942083013,0.081608008262875,16,3165,False,stationary
+finance,WMT,Close,raw,ADF,1.2269838356005696,0.9961671150906486,25,3140,False,non-stationary
+finance,WMT,Close,raw,KPSS,7.329793956968509,0.01,32,3166,True,non-stationary
+finance,WMT,High,differenced,ADF,-11.90241761742654,5.535240836060229e-22,29,3135,True,stationary
+finance,WMT,High,differenced,KPSS,0.3827783500393883,0.08457829739681538,11,3165,False,stationary
+finance,WMT,High,raw,ADF,1.0034812144283622,0.9943025439386536,5,3160,False,non-stationary
+finance,WMT,High,raw,KPSS,7.321704946741495,0.01,32,3166,True,non-stationary
+finance,WMT,Low,differenced,ADF,-12.568534529938503,2.0281119895939446e-23,29,3135,True,stationary
+finance,WMT,Low,differenced,KPSS,0.3945293800760479,0.07951319824308281,18,3165,False,stationary
+finance,WMT,Low,raw,ADF,1.1547323487744878,0.9956577064701395,23,3142,False,non-stationary
+finance,WMT,Low,raw,KPSS,7.339564456575821,0.01,32,3166,True,non-stationary
+finance,WMT,Open,differenced,ADF,-12.106206909336908,1.966327180248208e-22,29,3135,True,stationary
+finance,WMT,Open,differenced,KPSS,0.3892303901226076,0.08179724563680708,14,3165,False,stationary
+finance,WMT,Open,raw,ADF,1.1678795267347561,0.9957562714496397,22,3143,False,non-stationary
+finance,WMT,Open,raw,KPSS,7.331322589503466,0.01,32,3166,True,non-stationary
+finance,WMT,Volume,differenced,ADF,-17.134498999086038,7.112885055328694e-30,25,3139,True,stationary
+finance,WMT,Volume,differenced,KPSS,0.3542789419755963,0.09686252501051884,2279,3165,False,stationary
+finance,WMT,Volume,raw,ADF,-11.531478558518995,3.8224890667699236e-21,10,3155,True,stationary
+finance,WMT,Volume,raw,KPSS,1.4083406334398874,0.01,24,3166,True,non-stationary
+finance,XOM,Adj Close,differenced,ADF,-11.480553613902096,5.0068136203721375e-21,27,3137,True,stationary
+finance,XOM,Adj Close,differenced,KPSS,0.3496029990254799,0.09887801766143106,6,3165,False,stationary
+finance,XOM,Adj Close,raw,ADF,0.8309060673184933,0.9921190199258045,28,3137,False,non-stationary
+finance,XOM,Adj Close,raw,KPSS,6.138579664163571,0.01,32,3166,True,non-stationary
+finance,XOM,Close,differenced,ADF,-23.652799866289172,0.0,5,3159,True,stationary
+finance,XOM,Close,differenced,KPSS,0.30697608722492736,0.1,3,3165,False,stationary
+finance,XOM,Close,raw,ADF,-0.6128458333214866,0.8680528958420701,0,3165,False,non-stationary
+finance,XOM,Close,raw,KPSS,3.25190163453559,0.01,32,3166,True,non-stationary
+finance,XOM,High,differenced,ADF,-13.215319215672872,1.0272946244205018e-24,18,3146,True,stationary
+finance,XOM,High,differenced,KPSS,0.3428535793485524,0.1,8,3165,False,stationary
+finance,XOM,High,raw,ADF,-0.3058144382662492,0.9246767872625501,19,3146,False,non-stationary
+finance,XOM,High,raw,KPSS,3.2936875071579563,0.01,32,3166,True,non-stationary
+finance,XOM,Low,differenced,ADF,-12.761873986961568,8.110726009680607e-24,21,3143,True,stationary
+finance,XOM,Low,differenced,KPSS,0.31865370158150613,0.1,7,3165,False,stationary
+finance,XOM,Low,raw,ADF,-0.2765438041873188,0.9287613593048282,22,3143,False,non-stationary
+finance,XOM,Low,raw,KPSS,3.2142838806925704,0.01,32,3166,True,non-stationary
+finance,XOM,Open,differenced,ADF,-11.285240702522882,1.4234119738829227e-20,29,3135,True,stationary
+finance,XOM,Open,differenced,KPSS,0.3287068671602213,0.1,2,3165,False,stationary
+finance,XOM,Open,raw,ADF,-0.10010750156600408,0.9494278248703816,29,3136,False,non-stationary
+finance,XOM,Open,raw,KPSS,3.251011118161434,0.01,32,3166,True,non-stationary
+finance,XOM,Volume,differenced,ADF,-15.977742356824928,6.890326987522803e-29,27,3137,True,stationary
+finance,XOM,Volume,differenced,KPSS,0.02420238799433442,0.1,80,3165,False,stationary
+finance,XOM,Volume,raw,ADF,-3.8754553927578286,0.002223094057164934,28,3137,True,stationary
+finance,XOM,Volume,raw,KPSS,2.237369362167377,0.01,31,3166,True,non-stationary
