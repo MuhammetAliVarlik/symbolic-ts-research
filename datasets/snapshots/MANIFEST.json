@@ -1,0 +1,44 @@
+{
+  "ett": {
+    "ETTh1": {
+      "date_range": [
+        "2016-07-01T00:00:00",
+        "2018-06-26T19:00:00"
+      ],
+      "retrieved_at": "2026-08-06T10:34:14.476512+00:00",
+      "row_count": 17420,
+      "sha256": "6ddb5525594a8a81ba0d5540cdc709e4f763226d4b09247a231baec88c5b13b6",
+      "source_url": "https://raw.githubusercontent.com/zhouhaoyi/ETDataset/main/ETT-small/ETTh1.csv"
+    },
+    "ETTh2": {
+      "date_range": [
+        "2016-07-01T00:00:00",
+        "2018-06-26T19:00:00"
+      ],
+      "retrieved_at": "2026-08-06T10:34:15.356728+00:00",
+      "row_count": 17420,
+      "sha256": "31946e0557922d49ab8b5d0838faa83f6df9a9c6e7524a6bb57882758f9a0a43",
+      "source_url": "https://raw.githubusercontent.com/zhouhaoyi/ETDataset/main/ETT-small/ETTh2.csv"
+    },
+    "ETTm1": {
+      "date_range": [
+        "2016-07-01T00:00:00",
+        "2018-06-26T19:45:00"
+      ],
+      "retrieved_at": "2026-08-06T10:34:17.356031+00:00",
+      "row_count": 69680,
+      "sha256": "313abe6eac01875274c7bfcbc00f82c623e27a670e98c087ac07bdd2efed1566",
+      "source_url": "https://raw.githubusercontent.com/zhouhaoyi/ETDataset/main/ETT-small/ETTm1.csv"
+    },
+    "ETTm2": {
+      "date_range": [
+        "2016-07-01T00:00:00",
+        "2018-06-26T19:45:00"
+      ],
+      "retrieved_at": "2026-08-06T10:34:19.207193+00:00",
+      "row_count": 69680,
+      "sha256": "e038025d0046ab0cf2d1f3fb71fe8c3544d69863f5eb12526adf662d3dec49a6",
+      "source_url": "https://raw.githubusercontent.com/zhouhaoyi/ETDataset/main/ETT-small/ETTm2.csv"
+    }
+  }
+}
