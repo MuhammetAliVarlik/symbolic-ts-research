@@ -11,7 +11,7 @@ import pandas as pd
 from _style import OKABE_ITO, apply_style, save
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-RESULTS_PATH = REPO_ROOT / "results" / "stationarity.csv"
+RESULTS_DIR = REPO_ROOT / "results"
 OUTPUT_DIR = Path(__file__).resolve().parent / "output"
 
 
@@ -19,7 +19,7 @@ def fig_a2_stationarity() -> None:
     """A2 -- ADF/KPSS results table-figure, summarised by domain x transform x test."""
     apply_style()
 
-    df = pd.read_csv(RESULTS_PATH)
+    df = pd.read_csv(RESULTS_DIR / "stationarity.csv")
     df["is_stationary"] = df["conclusion"] == "stationary"
 
     summary = (
@@ -51,5 +51,31 @@ def fig_a2_stationarity() -> None:
     plt.close(fig)
 
 
+def fig_a4_token_frequency() -> None:
+    """A4 -- token frequency distribution, finance vs ETT side by side."""
+    apply_style()
+
+    df = pd.read_csv(RESULTS_DIR / "token_frequency.csv")
+    pivot = df.pivot(index="token", columns="domain", values="proportion").fillna(0.0)
+    pivot = pivot.sort_index()
+
+    x = range(len(pivot))
+    width = 0.4
+
+    fig, ax = plt.subplots(figsize=(12, 4.5))
+    ax.bar([i - width / 2 for i in x], pivot["ett"], width, label="ETT", color=OKABE_ITO["blue"])
+    ax.bar([i + width / 2 for i in x], pivot["finance"], width, label="finance", color=OKABE_ITO["vermillion"])
+
+    ax.set_xticks(list(x))
+    ax.set_xticklabels(pivot.index, rotation=90, fontsize=7)
+    ax.set_xlabel("token")
+    ax.set_ylabel("proportion of domain's tokens")
+    ax.legend(frameon=False)
+
+    save(fig, OUTPUT_DIR, "A4_token_frequency")
+    plt.close(fig)
+
+
 if __name__ == "__main__":
     fig_a2_stationarity()
+    fig_a4_token_frequency()
