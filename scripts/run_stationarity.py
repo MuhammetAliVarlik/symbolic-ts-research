@@ -1,8 +1,8 @@
-"""Phase 0 prototype: ADF/KPSS stationarity testing across domains.
+"""Prototype: ADF/KPSS stationarity testing across domains.
 
-This is deliberately a throwaway script, not a library module -- F1-08 explicitly
-ports this logic into `symbolic-ts/stationarity.py` once the design has been
-validated here. Run with:
+This is deliberately a throwaway script, not a library module -- once this design
+is validated, the logic belongs in the `symbolic-ts` library's own stationarity
+helpers, not duplicated here. Run with:
 
     python scripts/run_stationarity.py
 

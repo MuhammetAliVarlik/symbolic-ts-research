@@ -1,4 +1,4 @@
-"""Package A figures (Phase 0: data and stationarity).
+"""Figures for the raw-data and stationarity analysis.
 
 No figure computes anything itself -- every function here reads a CSV under
 `results/` and only aggregates/formats for display.

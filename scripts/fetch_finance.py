@@ -31,7 +31,7 @@ MANIFEST_PATH = REPO_ROOT / "datasets" / "snapshots" / "MANIFEST.json"
 # clean daily history: tech (AAPL, MSFT), financials (JPM), energy (XOM),
 # healthcare (JNJ), consumer/retail (WMT), broad market (SPY).
 TICKERS = ["AAPL", "MSFT", "JPM", "XOM", "JNJ", "WMT", "SPY"]
-START_DATE = "2014-01-01"  # >= 10 years of margin ahead of the Phase 0 freeze date
+START_DATE = "2014-01-01"  # comfortably >= 10 years of history as of the freeze date
 
 
 def _sha256_file(path: Path) -> str:
