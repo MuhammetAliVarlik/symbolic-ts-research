@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "symbolic-ts-research"
+version = "0.1.0"
+description = "Thesis experiments: symbolic time-series representation for cross-domain small-language-model transfer"
+authors = ["Muhammet Ali Varlik"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "^2.0"
+pyarrow = "^15.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.4"
+pytest-socket = "^0.6"
+requests = "^2.31"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
