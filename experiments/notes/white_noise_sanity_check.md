@@ -140,6 +140,21 @@ volatility-channel noise, not a weakness in the underlying signal — the change
 alone shows the real domains are genuinely more alike than either noise-vs-noise or any
 noise-vs-real comparison.
 
+**Why real-vs-real (0.2448) sits *above* noise-vs-noise (0.110) yet far *below*
+noise-vs-real (0.33+), and why that ordering is the healthy pattern, not a warning sign:**
+noise-vs-noise is trivially low because symmetric sigma-binning collapses *any*
+unstructured input toward a similar near-uniform shape regardless of which domain it was
+matched to — two noise draws look alike for a reason that has nothing to do with shared
+structure, just the binning mechanism acting on structurelessness the same way twice. Real
+domains, by contrast, carry genuine — and only imperfectly matched — structure, which
+places their mutual distance between the two extremes: closer than noise is to a real
+domain (real structure gives them something in common noise doesn't have), but further
+apart than two noise draws are from each other (that structure isn't identical between
+domains, so it doesn't collapse them together the way its absence does). A reader
+comparing only real-vs-real against noise-vs-noise could misread the former being larger
+as a bad sign; the correct comparison is real-vs-real against noise-vs-real, which is
+where the 0th-percentile result above actually applies.
+
 **Revised guidance for F0-10:** the real signal, not the KL statistic itself, was in
 question. With the windowing-artifact explanation checked and not supported at the
 level that mattered (cross-domain similarity survives with volatility removed entirely),
