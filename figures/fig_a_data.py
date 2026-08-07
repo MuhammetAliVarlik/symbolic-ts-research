@@ -234,11 +234,45 @@ def fig_a9_entropy_mi() -> None:
     plt.close(fig)
 
 
+def fig_a8_acf_pacf() -> None:
+    """A8 -- token sequence ACF with Bartlett bounds, per domain x channel,
+    justifying the recommended context window."""
+    apply_style()
+
+    df = pd.read_csv(RESULTS_DIR / "acf_pacf.csv")
+    domains = ["ett_hourly", "ett_15min", "finance", "ett_daily"]
+    channels = ["change", "volatility"]
+
+    fig, axes = plt.subplots(len(domains), len(channels), figsize=(11, 12), sharex=True)
+
+    for row, domain in enumerate(domains):
+        for col, channel in enumerate(channels):
+            ax = axes[row, col]
+            sub = df[(df.domain == domain) & (df.channel == channel)]
+            ax.axhline(0, color=OKABE_ITO["black"], linewidth=0.5)
+            ax.fill_between(
+                sub["lag"], -sub["acf_bartlett_bound"], sub["acf_bartlett_bound"],
+                color=OKABE_ITO["sky_blue"], alpha=0.3, label="Bartlett bound",
+            )
+            ax.plot(sub["lag"], sub["acf"], color=OKABE_ITO["vermillion"], linewidth=1)
+            if row == 0:
+                ax.set_title(channel, fontsize=10)
+            if col == 0:
+                ax.set_ylabel(domain, fontsize=9)
+            if row == len(domains) - 1:
+                ax.set_xlabel("lag")
+
+    axes[0, 0].legend(frameon=False, loc="upper right", fontsize=7)
+    save(fig, OUTPUT_DIR, "A8_acf_pacf")
+    plt.close(fig)
+
+
 if __name__ == "__main__":
     fig_a2_stationarity()
     fig_a4_token_frequency()
     fig_a5_transition_finance()
     fig_a6_transition_ett()
     fig_a7_transition_similarity()
+    fig_a8_acf_pacf()
     fig_diag_granularity_matched_similarity()
     fig_a9_entropy_mi()

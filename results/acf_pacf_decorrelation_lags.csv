@@ -1,0 +1,9 @@
+domain,channel,decorrelation_lag,oscillating
+ett_hourly,change,-1,True
+ett_hourly,volatility,-1,False
+ett_15min,change,210,True
+ett_15min,volatility,143,True
+finance,change,10,False
+finance,volatility,137,False
+ett_daily,change,8,False
+ett_daily,volatility,54,False
