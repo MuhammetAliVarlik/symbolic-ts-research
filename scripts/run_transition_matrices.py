@@ -137,22 +137,30 @@ def main() -> None:
     # the domain's unconditional token frequency (repeated identically in
     # every row)? Low divergence would mean the transition matrix is mostly
     # reproducing the marginal, not revealing conditional structure beyond it.
+    #
+    # The observation-weighted mean of KL(row || marginal) over ALL rows is
+    # not merely related to mutual information -- by the identity
+    # I(X;Y) = sum_x P(X=x) * KL(P(Y|X=x) || P(Y)), it IS the plug-in estimate
+    # of lag-1 mutual information between consecutive tokens (undefined rows
+    # contribute zero weight anyway, since P(X=x)=0 for a token never observed
+    # as a from-state). F0-08's lag-1 MI must reproduce this exactly.
     divergence_df = pd.DataFrame(divergence_rows)
     divergence_path = RESULTS_DIR / "transition_vs_marginal_divergence.csv"
     divergence_df.to_csv(divergence_path, index=False)
     print(f"\nwrote {divergence_path}")
 
-    print("\nmean KL(row || marginal), observation-weighted, bits:")
+    print("\nlag-1 mutual information (observation-weighted mean KL(row || marginal)), bits:")
     for domain in domains:
         subset = divergence_df[divergence_df["domain"] == domain]
         defined = subset[subset["flag"] != "undefined"]
         sufficient = subset[subset["flag"] == "sufficient"]
 
-        weighted_all = np.average(defined["kl_vs_marginal_bits"], weights=defined["row_total"])
-        weighted_sufficient = np.average(sufficient["kl_vs_marginal_bits"], weights=sufficient["row_total"])
+        mutual_information = np.average(defined["kl_vs_marginal_bits"], weights=defined["row_total"])
+        sufficient_only_check = np.average(sufficient["kl_vs_marginal_bits"], weights=sufficient["row_total"])
         print(
-            f"  {domain}: all defined rows = {weighted_all:.4f} bits, "
-            f"sufficient rows only (n>={MIN_OBSERVATIONS}) = {weighted_sufficient:.4f} bits"
+            f"  {domain}: I(X;Y) = {mutual_information:.4f} bits "
+            f"(sufficient-rows-only robustness check = {sufficient_only_check:.4f} bits) "
+            f"-- F0-08 lag-1 MI must match {mutual_information:.4f}"
         )
 
 
