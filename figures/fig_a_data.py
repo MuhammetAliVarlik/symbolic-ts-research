@@ -6,6 +6,7 @@ No figure computes anything itself -- every function here reads a CSV under
 from pathlib import Path
 
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 
 from _style import OKABE_ITO, apply_style, save
@@ -198,6 +199,41 @@ def fig_diag_granularity_matched_similarity() -> None:
     plt.close(fig)
 
 
+def fig_a9_entropy_mi() -> None:
+    """A9 -- entropy rate (plug-in vs. Miller-Madow-corrected) and lag-1..10
+    mutual information, per domain."""
+    apply_style()
+
+    df = pd.read_csv(RESULTS_DIR / "information_theory.csv")
+    domains = ["ett", "finance", "ett_daily"]
+    colors = {"ett": OKABE_ITO["blue"], "finance": OKABE_ITO["vermillion"], "ett_daily": OKABE_ITO["bluish_green"]}
+
+    fig, (ax_entropy, ax_mi) = plt.subplots(1, 2, figsize=(13, 5.5))
+
+    x = np.arange(len(domains))
+    width = 0.35
+    plugin = [df[(df.domain == d) & (df.metric == "entropy_rate_plugin")]["value_bits"].iloc[0] for d in domains]
+    mm = [df[(df.domain == d) & (df.metric == "entropy_rate_miller_madow")]["value_bits"].iloc[0] for d in domains]
+    ax_entropy.bar(x - width / 2, plugin, width, label="plug-in", color=OKABE_ITO["sky_blue"])
+    ax_entropy.bar(x + width / 2, mm, width, label="Miller-Madow", color=OKABE_ITO["orange"])
+    ax_entropy.axhline(np.log2(25), color=OKABE_ITO["black"], linestyle="--", linewidth=1, label="max (log2 25)")
+    ax_entropy.set_xticks(x)
+    ax_entropy.set_xticklabels(domains)
+    ax_entropy.set_ylabel("entropy rate (bits)")
+    ax_entropy.legend(frameon=False)
+
+    for domain in domains:
+        subset = df[(df.domain == domain) & (df.metric == "mutual_information")].sort_values("lag")
+        ax_mi.plot(subset["lag"], subset["value_bits"], marker="o", label=domain, color=colors[domain])
+    ax_mi.set_xlabel("lag")
+    ax_mi.set_ylabel("mutual information (bits)")
+    ax_mi.set_xticks(range(1, 11))
+    ax_mi.legend(frameon=False)
+
+    save(fig, OUTPUT_DIR, "A9_entropy_mi")
+    plt.close(fig)
+
+
 if __name__ == "__main__":
     fig_a2_stationarity()
     fig_a4_token_frequency()
@@ -205,3 +241,4 @@ if __name__ == "__main__":
     fig_a6_transition_ett()
     fig_a7_transition_similarity()
     fig_diag_granularity_matched_similarity()
+    fig_a9_entropy_mi()
