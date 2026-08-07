@@ -32,16 +32,17 @@ Full reasoning: `experiments/notes/phase0_gate.md`.
 | F0-04 | Does a naive symbolic binning survive contact with real data? | No — required log-returns (not raw differences) for finance, log-scale volatility binning, and dropping a non-stationary `level` channel (D2 revised: 2 channels, not 3) |
 | F0-05 | Do the two domains use a comparable token vocabulary? | Yes — small effect size (Cramér's V = 0.108), shared top tokens, no vocabulary fragmentation |
 | F0-06 | Does either domain have real sequential structure at all? | Yes, substantially — conditional structure accounts for ~41–47% of each domain's marginal entropy |
-| F0-07 | Are the two domains' transition dynamics more similar than chance? | Fails at native sampling rate — but that turned out to be a granularity mismatch (ETT hourly, finance daily), not a real domain difference; matching granularity closes 92–96% of the gap |
+| F0-07 | Are the two domains' transition dynamics more similar than chance? | Fails at native sampling rate. Matching granularity substantially narrows the gap on the more trustworthy statistic (Frobenius norm), though the exact size of the residual gap is sensitive to the daily-aggregation method used (F0-11) — not a settled, aggregation-invariant number |
 | F0-08 | Is either sequence close to random? | No — entropy rate sits at 40–52% of the theoretical maximum in every domain tested |
 | F0-09 | How far back should the model actually look? | PACF-derived context window: **50** steps (not the original placeholder of 30, and not the ACF-only estimate of 150, which conflated genuine volatility clustering with a rolling-window statistical artifact) |
 | F0-10 | Does a cross-domain model perform clearly worse than an in-domain one? | Partially — a real, sample-size-independent penalty exists, but only at higher Markov orders (4–5) and only in one direction (ETT→finance); the equalized-training-size control ruled out training-set size as the explanation for that portion |
 
 ### The two caveats carried into Phase 1
 
-1. F0-07's residual gap (real domains still sit at the 96.8th/80.4th percentile of a
-   permutation null, not comfortably inside it) needs re-checking once Phase 1's real
-   binning and split implementation replace the Phase 0 throwaway prototype.
+1. F0-07's residual gap on Frobenius norm (real domains sit outside a comfortable pass
+   under both daily-aggregation choices checked, F0-11) needs re-checking, under both
+   aggregations, once Phase 1's real binning and split implementation replace the
+   Phase 0 throwaway prototype.
 2. The genuine cross-domain penalty found in F0-10 is now a precise, falsifiable target
    for the eventual SLM: closing that specific higher-order, direction-specific gap is
    what "the transfer claim holds" should mean in Phase 4, not just "cross-domain was
