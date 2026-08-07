@@ -10,13 +10,20 @@ F0-01 through F0-10. It states a decision, not another description of mixed evid
 
 1. *"Transition matrices of the two domains are measurably more similar than chance"*
    (F0-07) — **fails at native granularity, and the granularity-matched version doesn't
-   comfortably pass either** (96.8th/80.4th percentile of its own permutation null, not
-   inside it). But the white-noise sanity check — run twice, once on the full 25-symbol
-   vocabulary and again on change-only 5-symbol tokens specifically to rule out the
-   volatility channel's rolling-window artifact — confirms the granularity-matched
-   similarity is **real, non-artifactual shared structure**, not a sigma-binning
-   byproduct: real finance-vs-ett_daily sits at the 0th percentile of every noise-vs-real
-   distribution on change-only tokens, on both Frobenius norm and symmetrised KL.
+   comfortably pass either.** The exact residual gap depends on which statistic and
+   which daily-aggregation method is used (F0-11 checked this directly, not assumed):
+   **Frobenius norm** — the more trustworthy of the two statistics, per the white-noise
+   check below — shows a real gap under *both* `.last()` (96.8th percentile, 1.95 null
+   sd) and `.mean()` (100th percentile, 6.74 null sd) daily resampling, actually larger
+   under `.mean()`. **Symmetrised KL is aggregation-dependent** (80.4th percentile under
+   `.last()`, 41.2nd — essentially the null's centre — under `.mean()`) and should not
+   be cited as strong evidence in either direction going forward. The white-noise sanity
+   check — run twice, once on the full 25-symbol vocabulary and again on change-only
+   5-symbol tokens specifically to rule out the volatility channel's rolling-window
+   artifact — confirms the granularity-matched similarity is **real, non-artifactual
+   shared structure**, not a sigma-binning byproduct: real finance-vs-ett_daily sits at
+   the 0th percentile of every noise-vs-real distribution on change-only tokens, on both
+   Frobenius norm and symmetrised KL.
 2. *"Cross-domain Markov performs clearly worse than in-domain Markov"* (F0-10) —
    **partially true, precisely characterized rather than left as an average.** The
    equalized-N control (subsampling finance's training set to ett_daily's size) shows
@@ -61,12 +68,16 @@ unconditional pass.
 
 ## The two caveats carried forward, explicitly (not silently absorbed)
 
-1. **The residual F0-07 gap (96.8th/80.4th percentile, not fully inside the null) is
-   unresolved, not explained away.** It should be re-checked once Phase 1's real
-   walk-forward splitting (F1-06) and library-grade binning (F1-02/F1-03) exist —
-   this Phase 0 work used a 70/30 ad-hoc split and the throwaway F0-04 prototype
-   tokenizer, not the eventual library. A result that survives re-measurement with the
-   real implementation is worth more than one that only exists in the prototype.
+1. **The residual F0-07 gap on Frobenius norm (96.8th percentile under `.last()`,
+   100th under `.mean()` — real under both, per F0-11) is unresolved, not explained
+   away.** It should be re-checked once Phase 1's real walk-forward splitting (F1-06)
+   and library-grade binning (F1-02/F1-03) exist — this Phase 0 work used a 70/30
+   ad-hoc split and the throwaway F0-04 prototype tokenizer, not the eventual library.
+   F1-11 should run that re-check under *both* daily-aggregation methods and report
+   both, per F0-11's finding that the choice materially affects the result — not settle
+   on a single number the way this phase's exploratory work did. A result that survives
+   re-measurement with the real implementation is worth more than one that only exists
+   in the prototype.
 2. **The genuine orders 4–5 cross-domain Markov penalty is a real, standing bar, not a
    caveat against proceeding — but it should shape what "success" means for the SLM.**
    Since it survived a fair, sample-size-matched comparison, it is not something more
