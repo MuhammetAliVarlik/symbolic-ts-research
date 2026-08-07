@@ -86,3 +86,66 @@ similarity through variance-matching), but it does mean **F0-07's transfer-suppo
 evidence should now be described as "one of two statistics survives an artifact check,"
 not "the domains are measurably similar," until F0-10 adds a third, independent line of
 evidence.**
+
+## Follow-up: is the KL ambiguity caused by the volatility channel's rolling window?
+
+Before F0-10, a specific mechanism was checked: the volatility channel is a 20-period
+rolling std, and overlapping windows sharing up to 19 of 20 observations mechanically
+induce autocorrelation in *any* input, including pure noise — a known property of
+moving-window statistics, unrelated to whether the underlying data has real structure.
+If that mechanical memory (not real shared structure) is what's driving part of F0-06/
+F0-07/this check's apparent similarity, it would be a problem with the volatility
+channel's construction (D1), not evidence for transfer.
+
+**Step 1 — verify the mechanism directly, before concluding anything from it.** Generated
+20,000 iid Gaussian draws and compared the ACF of the raw draws against the ACF of
+`rolling(20).std()` computed from that same series:
+
+| lag | raw iid `change` ACF | `rolling(20).std()` ACF |
+|---|---|---|
+| 1 | −0.0006 (inside bound) | 0.9443 |
+| 5 | 0.0067 (inside bound) | 0.7266 |
+| 10 | 0.0094 (inside bound) | 0.4753 |
+| 15 | −0.0025 (inside bound) | 0.2331 |
+| 19 | 0.0007 (inside bound) | 0.0407 (inside bound) |
+| 20 | −0.0054 (inside bound) | −0.0072 (inside bound) |
+
+**Confirmed exactly as expected.** The raw iid series has ~zero autocorrelation
+everywhere, as genuine iid noise should. Its rolling-std derivative shows strong
+artificial autocorrelation that decays smoothly and crosses into the Bartlett bound
+right at lag 19–20 — precisely where 20-period windows stop overlapping. This is a
+textbook confirmation of the mechanism, not specific to this project's data.
+
+**Step 2 — re-run the sanity check on change-only tokens (5 symbols, not 25), dropping
+volatility entirely** (`scripts/run_white_noise_change_only.py`,
+`results/white_noise_change_only_*.csv`). Fresh change-only real finance-vs-ett_daily
+comparison, plus the same 10-replication noise methodology as above:
+
+| comparison | statistic | real value | replication mean (range) | real value's percentile |
+|---|---|---|---|---|
+| noise vs noise | Frobenius | 0.2448 | 0.1102 (0.080–0.141) | **100th** |
+| noise vs noise | sym. KL | 0.0429 | 0.0099 (0.007–0.015) | **100th** |
+| noise(finance) vs real ett_daily | Frobenius | 0.2448 | 0.3253 (0.310–0.348) | **0th** |
+| noise(finance) vs real ett_daily | sym. KL | 0.0429 | 0.0763 (0.071–0.085) | **0th** |
+| noise(ett_daily) vs real finance | Frobenius | 0.2448 | 0.3390 (0.291–0.372) | **0th** |
+| noise(ett_daily) vs real finance | sym. KL | 0.0429 | 0.0714 (0.048–0.091) | **0th** |
+
+**Result: similarity holds up cleanly on change-only tokens, on *both* statistics.** Real
+finance-vs-ett_daily sits at the 0th percentile of every noise-vs-real distribution —
+smaller (more similar) than all 10 replications, for Frobenius *and* symmetrised KL, with
+no volatility channel and therefore no windowing artifact possible. This is a cleaner
+result than the original 25-symbol check, where KL was ambiguous (40th percentile in the
+finance→ett_daily direction). That ambiguity is consistent with having been partly
+volatility-channel noise, not a weakness in the underlying signal — the change channel
+alone shows the real domains are genuinely more alike than either noise-vs-noise or any
+noise-vs-real comparison.
+
+**Revised guidance for F0-10:** the real signal, not the KL statistic itself, was in
+question. With the windowing-artifact explanation checked and not supported at the
+level that mattered (cross-domain similarity survives with volatility removed entirely),
+**both Frobenius and symmetrised KL can now be weighted with restored confidence**,
+superseding the earlier "weight Frobenius over KL" guidance above. D1 does not need
+reconsidering on the grounds of this check specifically — though see `F0-09.md` for a
+related but distinct finding: the volatility channel's *long* ACF decay used to justify
+the context window is genuine (not artifact), but PACF suggests the window itself should
+be considerably shorter than the ACF-only figure.
