@@ -78,6 +78,32 @@ experiments/notes/    per-task reports (F0-01.md … F0-10.md) and phase0_gate.m
 No number in this README was hand-typed from memory; each traces to one of the files
 above.
 
+### Shared code with the library
+
+The research scripts install `symbolic-ts` in editable mode, so a Phase 0 result
+and a later thesis result come from the same function, not two copies of it:
+
+```bash
+.venv/bin/pip install -e ../symbolic-ts
+```
+
+Since `F1-08`, the stationarity tests (`F0-03`) and the ACF/PACF context-window
+analysis (`F0-09`) call `symbolic_ts.stationarity` instead of wrapping `statsmodels`
+themselves. The switch was checked by re-running both scripts: all three result
+files came out byte-identical to the committed Phase 0 versions, so every figure and
+note built on them stands unchanged.
+
+```mermaid
+flowchart LR
+    S1["scripts/run_stationarity.py\n(F0-03)"] --> L["symbolic_ts.stationarity\nadf_test · kpss_test\nacf_with_bounds · pacf_with_bounds"]
+    S2["scripts/run_acf_pacf.py\n(F0-09)"] --> L
+    L --> SM["statsmodels"]
+    S1 --> R1["results/stationarity.csv"]
+    S2 --> R2["results/acf_pacf.csv\nresults/acf_pacf_decorrelation_lags.csv"]
+    R1 --> F1["Figure A2"]
+    R2 --> F2["Figure A8"]
+```
+
 ## Repository layout
 
 ```
