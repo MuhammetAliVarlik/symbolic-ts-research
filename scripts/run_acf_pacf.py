@@ -61,7 +61,7 @@ sys.path.insert(0, str(SCRIPTS_DIR))
 
 import numpy as np
 import pandas as pd
-from statsmodels.tsa.stattools import acf, pacf
+from symbolic_ts.stationarity import Correlogram, acf_with_bounds, pacf_with_bounds
 
 from prototype_tokenize import BASE_READING, project_channels, tokenize
 from run_granularity_matched_comparison import resample_ett_daily
@@ -114,41 +114,21 @@ def domain_ordinal_series(domain: str) -> dict[str, np.ndarray]:
     }
 
 
-def acf_pacf_with_bounds(series: np.ndarray, max_lag: int) -> pd.DataFrame:
-    acf_vals, acf_confint = acf(series, nlags=max_lag, alpha=ALPHA, bartlett_confint=True, fft=True)
-    pacf_vals, pacf_confint = pacf(series, nlags=max_lag, alpha=ALPHA)
-
-    # acf()/pacf() include lag 0; drop it -- lag 0 autocorrelation is always 1
-    # by definition and isn't part of the decay we're studying.
-    acf_bound = (acf_confint[1:, 1] - acf_confint[1:, 0]) / 2  # half-width, symmetric around acf_vals
-    pacf_bound = (pacf_confint[1:, 1] - pacf_confint[1:, 0]) / 2
-
-    return pd.DataFrame(
+def acf_pacf_with_bounds(series: np.ndarray, max_lag: int) -> tuple[pd.DataFrame, Correlogram]:
+    """ACF (Bartlett bound) and PACF (white-noise bound) from `symbolic_ts.stationarity`,
+    side by side in one table. Lag 0 is dropped by the library -- it is always 1."""
+    acf_result = acf_with_bounds(series, nlags=max_lag, alpha=ALPHA)
+    pacf_result = pacf_with_bounds(series, nlags=max_lag, alpha=ALPHA)
+    df = pd.DataFrame(
         {
-            "lag": np.arange(1, max_lag + 1),
-            "acf": acf_vals[1:],
-            "acf_bartlett_bound": acf_bound,
-            "pacf": pacf_vals[1:],
-            "pacf_bound": pacf_bound,
+            "lag": acf_result.lags,
+            "acf": acf_result.values,
+            "acf_bartlett_bound": acf_result.bounds,
+            "pacf": pacf_result.values,
+            "pacf_bound": pacf_result.bounds,
         }
     )
-
-
-def first_lag_indistinguishable_from_zero(df: pd.DataFrame, consecutive: int = 3) -> int:
-    """First lag k such that |acf| stays within the Bartlett bound for
-    `consecutive` lags in a row -- avoids reporting a single noisy crossing as
-    if it were the true decorrelation point.
-
-    This is a raw signal only. Whether that point represents genuine decay or
-    a periodic series coincidentally dipping inside the band for a few lags is
-    a judgment call made separately, by reading the actual curve -- see the
-    module docstring for why an automated version of that judgment wasn't
-    reliable enough to trust here."""
-    within_bound = (df["acf"].abs() < df["acf_bartlett_bound"]).to_numpy()
-    for i in range(len(within_bound) - consecutive + 1):
-        if within_bound[i : i + consecutive].all():
-            return int(df["lag"].iloc[i])
-    return -1  # never stably within bounds up to MAX_LAG
+    return df, acf_result
 
 
 def main() -> None:
@@ -159,12 +139,16 @@ def main() -> None:
     for domain in domains:
         series = domain_ordinal_series(domain)
         for channel, values in series.items():
-            df = acf_pacf_with_bounds(values, MAX_LAG)
+            df, acf_result = acf_pacf_with_bounds(values, MAX_LAG)
             df.insert(0, "channel", channel)
             df.insert(0, "domain", domain)
             all_rows.append(df)
 
-            lag0 = first_lag_indistinguishable_from_zero(df)
+            # First lag stably (3 in a row) inside the Bartlett bound: a raw
+            # signal only -- see the module docstring for why "decayed" vs.
+            # "periodic, coincidentally dipped" is judged from the curve instead.
+            first = acf_result.first_lag_within_bounds(consecutive=3)
+            lag0 = -1 if first is None else first  # -1 = never within bounds up to MAX_LAG
             decorrelation_lags[(domain, channel)] = lag0
             print(f"{domain} / {channel}: first lag with 3-consecutive-lags inside Bartlett bound = {lag0}")
 

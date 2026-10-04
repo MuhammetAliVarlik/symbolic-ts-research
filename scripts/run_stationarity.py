@@ -1,8 +1,8 @@
-"""Prototype: ADF/KPSS stationarity testing across domains.
+"""ADF/KPSS stationarity testing across domains (F0-03).
 
-This is deliberately a throwaway script, not a library module -- once this design
-is validated, the logic belongs in the `symbolic-ts` library's own stationarity
-helpers, not duplicated here. Run with:
+The tests themselves come from `symbolic_ts.stationarity` (F1-08), whose
+defaults are exactly the configuration below -- this script only loads the
+data and writes the table. Run with:
 
     python scripts/run_stationarity.py
 
@@ -16,21 +16,19 @@ KPSS (`statsmodels.tsa.stattools.kpss`, regression="c", nlags="auto"):
     H0 = the series is (trend-)stationary.
 
 KPSS p-values are looked up from a table bounded to [0.01, 0.1]; when the true
-p-value falls outside that range, statsmodels clips it and warns. Those warnings
-are expected here (return series are usually far more/less stationary than the
-table's range) and are suppressed; the clipped p-value is recorded as-is.
+p-value falls outside that range, statsmodels clips it. The library flags that
+(`p_value_clipped`) instead of warning; the clipped p-value is recorded as-is.
 """
 from __future__ import annotations
 
 import sys
-import warnings
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
 import pandas as pd
-from statsmodels.tsa.stattools import adfuller, kpss
+from symbolic_ts.stationarity import StationarityTestResult, adf_test, kpss_test
 
 from datasets.ett import VALID_VARIANTS as ETT_VARIANTS
 from datasets.ett import load_ett
@@ -45,38 +43,16 @@ FINANCE_CHANNELS = ["Open", "High", "Low", "Close", "Adj Close", "Volume"]
 ALPHA = 0.05
 
 
-def _run_adf(series: pd.Series) -> dict:
-    stat, pvalue, used_lag, n_obs, _crit, _icbest = adfuller(
-        series.to_numpy(), autolag="AIC", regression="c"
-    )
+def _row(result: StationarityTestResult) -> dict:
     return {
-        "test": "ADF",
-        "statistic": stat,
-        "p_value": pvalue,
-        "lags_used": used_lag,
-        "n_obs": n_obs,
-        "reject_null_5pct": pvalue < ALPHA,
+        "test": result.test,
+        "statistic": result.statistic,
+        "p_value": result.p_value,
+        "lags_used": result.lags,
+        "n_obs": result.n_obs,
+        "reject_null_5pct": result.reject_null,
+        "conclusion": "stationary" if result.is_stationary else "non-stationary",
     }
-
-
-def _run_kpss(series: pd.Series) -> dict:
-    with warnings.catch_warnings():
-        warnings.simplefilter("ignore")
-        stat, pvalue, lags, _crit = kpss(series.to_numpy(), regression="c", nlags="auto")
-    return {
-        "test": "KPSS",
-        "statistic": stat,
-        "p_value": pvalue,
-        "lags_used": lags,
-        "n_obs": len(series),
-        "reject_null_5pct": pvalue < ALPHA,
-    }
-
-
-def _conclusion(test: str, reject_null_5pct: bool) -> str:
-    if test == "ADF":
-        return "stationary" if reject_null_5pct else "non-stationary"
-    return "non-stationary" if reject_null_5pct else "stationary"
 
 
 def _rows_for_series(domain: str, series_id: str, channel: str, raw: pd.Series) -> list[dict]:
@@ -85,15 +61,14 @@ def _rows_for_series(domain: str, series_id: str, channel: str, raw: pd.Series) 
 
     rows = []
     for transform, series in [("raw", raw), ("differenced", differenced)]:
-        for result in [_run_adf(series), _run_kpss(series)]:
-            result["conclusion"] = _conclusion(result["test"], result["reject_null_5pct"])
+        for result in [adf_test(series, alpha=ALPHA), kpss_test(series, alpha=ALPHA)]:
             rows.append(
                 {
                     "domain": domain,
                     "series_id": series_id,
                     "channel": channel,
                     "transform": transform,
-                    **result,
+                    **_row(result),
                 }
             )
     return rows
