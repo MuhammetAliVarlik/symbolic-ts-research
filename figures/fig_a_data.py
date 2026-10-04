@@ -267,6 +267,47 @@ def fig_a8_acf_pacf() -> None:
     plt.close(fig)
 
 
+def fig_diag_markov_accuracy_by_order() -> None:
+    """Diagnostic (not one of the numbered thesis figures -- this pairing,
+    in-domain vs. cross-domain Markov accuracy by order, isn't in the
+    Package A-H catalog in WORKING_PLAN.md; named `diag_` like
+    `fig_diag_granularity_matched_similarity` above rather than an invented
+    `A#` slot). Markov order (1-5) on the x-axis, accuracy on the y-axis,
+    Wilson CI error bars from `results/markov_baseline.csv`'s own
+    `accuracy_wilson_lo`/`accuracy_wilson_hi` columns (F1-07's Wilson score
+    interval -- not recomputed here). Colour = training domain, line style =
+    in-domain (solid) vs. cross-domain (dashed), so the same-colour
+    solid-vs-dashed gap is a direct visual read of the transfer cost."""
+    apply_style()
+
+    df = pd.read_csv(RESULTS_DIR / "markov_baseline.csv")
+
+    series = [
+        ("finance", "finance", OKABE_ITO["blue"], "-", "finance -> finance (in-domain)"),
+        ("finance", "ett_daily", OKABE_ITO["blue"], "--", "finance -> ett_daily (cross-domain)"),
+        ("ett_daily", "ett_daily", OKABE_ITO["vermillion"], "-", "ett_daily -> ett_daily (in-domain)"),
+        ("ett_daily", "finance", OKABE_ITO["vermillion"], "--", "ett_daily -> finance (cross-domain)"),
+    ]
+
+    fig, ax = plt.subplots(figsize=(7.5, 5.5))
+    for train_domain, eval_domain, color, linestyle, label in series:
+        subset = df[(df.train_domain == train_domain) & (df.eval_domain == eval_domain)].sort_values("order")
+        lower_err = subset["accuracy"] - subset["accuracy_wilson_lo"]
+        upper_err = subset["accuracy_wilson_hi"] - subset["accuracy"]
+        ax.errorbar(
+            subset["order"], subset["accuracy"], yerr=[lower_err, upper_err],
+            color=color, linestyle=linestyle, marker="o", capsize=3, label=label,
+        )
+
+    ax.set_xlabel("Markov order")
+    ax.set_ylabel("accuracy")
+    ax.set_xticks(sorted(df["order"].unique()))
+    ax.legend(frameon=False)
+
+    save(fig, OUTPUT_DIR, "diag_markov_accuracy_by_order")
+    plt.close(fig)
+
+
 if __name__ == "__main__":
     fig_a2_stationarity()
     fig_a4_token_frequency()
@@ -275,4 +316,5 @@ if __name__ == "__main__":
     fig_a7_transition_similarity()
     fig_a8_acf_pacf()
     fig_diag_granularity_matched_similarity()
+    fig_diag_markov_accuracy_by_order()
     fig_a9_entropy_mi()
